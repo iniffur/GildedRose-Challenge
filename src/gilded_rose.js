@@ -22,6 +22,7 @@ class Shop {
   }
 
   updateAgedBrie(i){
+    // Updates Aged Brie - quality increases twice as fast once sell by date passed
     this.items[i].sellIn -= 1;
     if (this.items[i].sellIn < 0){
       this.items[i].quality += 2
@@ -30,13 +31,30 @@ class Shop {
     }
   }
 
+  updateBackstagePasses(i){
+    // Updates Backstage Passes - quality increases by 2 when 10 days or less, 3 when 5 days or less, but 0 after concert
+    this.items[i].sellIn -= 1;
+    if ((this.items[i].sellIn <= 0)){
+      this.items[i].quality = 0
+    } else if (this.items[i].sellIn <= 5){
+      this.items[i].quality += 3
+    } else if (this.items[i].sellIn <= 10){
+      this.items[i].quality += 2
+    } else {
+      this.items[i].quality += 1
+    }
+  }
 
   newUpdateQuality(){
     for (let i = 0; i < this.items.length; i++){
       if(this.items[i].name == 'Aged Brie'){
         this.updateAgedBrie(i)
+      } else if(this.items[i].name.startsWith("Sulfuras") === true){
+        // do nothing
+      } else if(this.items[i].name.startsWith("Backstage passes") === true){
+        this.updateBackstagePasses(i)
       } else {
-      this.updateNormalItems(i)
+        this.updateNormalItems(i)
       }
     }
     return this.items;
