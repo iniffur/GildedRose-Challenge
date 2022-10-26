@@ -13,7 +13,7 @@ class Shop {
 
   updateNormalItems(i){
     // Updates normal items - quality degrades twice as fast once sell by date passed
-    if (this.items[i].sellIn < 0){
+    if (this.items[i].sellIn <= 0){
       this.items[i].quality -= 2
     } else {
       this.items[i].quality -= 1
@@ -24,7 +24,7 @@ class Shop {
 
   updateAgedBrie(i){
     // Updates Aged Brie - quality increases twice as fast once sell by date passed
-    if (this.items[i].sellIn < 0 && this.items[i].quality < 49){
+    if (this.items[i].sellIn <= 0){
       this.items[i].quality += 2
     } else {
       this.items[i].quality += 1
@@ -48,15 +48,8 @@ class Shop {
     this.maxQualityCheck(i)
   }
 
-  // maxSulfurasQuality(i){
-  //   //Maximum Sulfuras quality is 50
-  //   if (this.items[i].quality > 50){
-  //     this.items[i].quality = 50
-  //   } 
-  // }
-
   updateConjuredItems(i){
-    if (this.items[i].sellIn < 0){
+    if (this.items[i].sellIn <= 0){
       this.items[i].quality -= 4
     } else {
       this.items[i].quality -= 2
@@ -83,6 +76,7 @@ class Shop {
         this.updateAgedBrie(i)
       } else if(this.items[i].name.startsWith("Sulfuras") === true){
         this.maxQualityCheck(i)
+        this.minQualityCheck(i)
       } else if(this.items[i].name.startsWith("Backstage passes") === true){
         this.updateBackstagePasses(i)
       } else if(this.items[i].name.startsWith("Conjured") === true){

@@ -59,8 +59,8 @@ describe("Gilded Rose", () =>  {
     expect(items[0].quality).toBe(23);
   })
 
-  it("Backsstage passes quality drops to zero after concert", () => {
-    const gildedRose = new Shop([new Item("Backstage passes to ASDF1234 concert", 0, 20)]);
+  it("Backstage passes quality drops to zero after concert", () => {
+    const gildedRose = new Shop([new Item("Backstage passes to ASDF1234 concert", -1, 20)]);
     const items = gildedRose.newUpdateQuality();
     expect(items[0].quality).toBe(0);
   })
@@ -87,6 +87,12 @@ describe("Gilded Rose", () =>  {
     const gildedRose = new Shop([new Item("Sulfuras, Hammer of Hephaestus", 3, 500)]);
     const items = gildedRose.newUpdateQuality();
     expect(items[0].quality).toBe(50);
+  })
+
+  it("Item quality can never be negative - Sulfuras", () => {
+    const gildedRose = new Shop([new Item("Sulfuras, Hammer of Hephaestus", 3, -7)]);
+    const items = gildedRose.newUpdateQuality();
+    expect(items[0].quality).toBe(0);
   })
 
   it("Conjured items degrade twice as fast as normal items", () => {
