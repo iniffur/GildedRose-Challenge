@@ -88,4 +88,29 @@ describe("Gilded Rose", () =>  {
     const items = gildedRose.newUpdateQuality();
     expect(items[0].quality).toBe(50);
   })
+
+  it("Conjured items degrade twice as fast as normal items", () => {
+    const gildedRose = new Shop([new Item("Conjured, foo", 10, 10)]);
+    const items = gildedRose.newUpdateQuality();
+    expect(items[0].quality).toBe(8);
+    expect(items[0].sellIn).toBe(9);
+  })
+
+  it("Conjured items degrade 4x as fast as normal items when past sell by date", () => {
+    const gildedRose = new Shop([new Item("Conjured, foo", -4, 10)]);
+    const items = gildedRose.newUpdateQuality();
+    expect(items[0].quality).toBe(6);
+  })
+
+  it("Item quality can never be negative - Conjured1", () => {
+    const gildedRose = new Shop([new Item("Conjured, foo", 12, 1)]);
+    const items = gildedRose.newUpdateQuality();
+    expect(items[0].quality).toBe(0);
+  })
+
+  it("Item quality can never be negative - Conjured2", () => {
+    const gildedRose = new Shop([new Item("Conjured, foo", -3, 1)]);
+    const items = gildedRose.newUpdateQuality();
+    expect(items[0].quality).toBe(0);
+  })
 });
