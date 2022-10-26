@@ -19,4 +19,17 @@ describe("Gilded Rose", () =>  {
     const items = gildedRose.newUpdateQuality();
     expect(items[0].quality).toBe(8);
   })
+
+  it("Aged Brie increases in quality as it ages", () => {
+    const gildedRose = new Shop([new Item("Aged Brie", 10, 10)]);
+    const items = gildedRose.newUpdateQuality();
+    expect(items[0].quality).toBe(11);
+    expect(items[0].sellIn).toBe(9);
+  })
+
+  it("Aged Brie quality increases twice as fast once sell by date has passed for normal items", () => {
+    const gildedRose = new Shop([new Item("Aged Brie", 0, 10)]);
+    const items = gildedRose.newUpdateQuality();
+    expect(items[0].quality).toBe(12);
+  })
 });

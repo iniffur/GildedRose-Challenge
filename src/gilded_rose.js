@@ -13,18 +13,31 @@ class Shop {
 
   updateNormalItems(i){
     // Updates normal items - quality degrades twice as fast once sell by date passed
-      this.items[i].sellIn -= 1;
-      if (this.items[i].sellIn < 0){
-        this.items[i].quality -= 2
-      } else {
-        this.items[i].quality -= 1
-      }
+    this.items[i].sellIn -= 1;
+    if (this.items[i].sellIn < 0){
+      this.items[i].quality -= 2
+    } else {
+      this.items[i].quality -= 1
+    }
+  }
+
+  updateAgedBrie(i){
+    this.items[i].sellIn -= 1;
+    if (this.items[i].sellIn < 0){
+      this.items[i].quality += 2
+    } else {
+      this.items[i].quality += 1
+    }
   }
 
 
   newUpdateQuality(){
     for (let i = 0; i < this.items.length; i++){
+      if(this.items[i].name == 'Aged Brie'){
+        this.updateAgedBrie(i)
+      } else {
       this.updateNormalItems(i)
+      }
     }
     return this.items;
   }
